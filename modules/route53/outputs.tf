@@ -4,3 +4,7 @@ output "validation_record_fqdns" {
 output "zone_id" {
   value = aws_route53_zone.main_route.zone_id
 }
+
+output "name_servers" {
+  value = aws_route53_zone.main_route.name_servers
+}

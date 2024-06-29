@@ -1,4 +1,8 @@
-output "cloudfront_domain" {
+output "cloudfront_id" {
+  value = aws_cloudfront_distribution.static_cloudfront.id
+}
+
+output "cloudfront_domain_name" {
   value = aws_cloudfront_distribution.static_cloudfront.domain_name
 }
 

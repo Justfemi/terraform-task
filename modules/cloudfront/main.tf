@@ -52,28 +52,3 @@ resource "aws_cloudfront_origin_access_control" "access" {
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
 }
-
-resource "aws_s3_bucket_policy" "website_policy" {
-  bucket = var.s3_bucket_id
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          Service = "cloudfront.amazonaws.com"
-        },
-        Action   = "s3:GetObject",
-        Resource = "${var.s3_bucket_arn}/*",
-        Condition = {
-          StringEquals = {
-            "AWS:SourceArn" = "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.s3_distribution.id}"
-          }
-        }
-      }
-    ]
-  })
-}
-
-data "aws_caller_identity" "current" {}
